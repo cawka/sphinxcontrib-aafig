@@ -1,2 +1,2 @@
 Sphinx>=0.6
-docutils-aafigure>=0.2
+aafigure>=0.3
