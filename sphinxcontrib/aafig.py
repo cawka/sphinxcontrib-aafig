@@ -56,6 +56,7 @@ class Aafig(Directive):
         aspect       = float,
         textual      = directives.flag,
         proportional = directives.flag,
+	inline       = directives.flag,
     )
 
     def run(self):
@@ -71,10 +72,15 @@ def render_aafigure(self, text, options, prefix):
     """
     Render an ASCII art figure into the requested format output file.
     """
+
+    # merge default options
+    for (k, v) in self.builder.config.aafig_default_options.items():
+        if k not in options:
+            options[k] = v
+
     hashkey = text.encode('utf-8') + str(options)
     id = sha(hashkey).hexdigest()
     fname = '%s-%s.%s' % (prefix, id, options['format'])
-    metadata_fname = '%s.aafig' % fname
     if hasattr(self.builder, 'imgpath'):
         # HTML
         relfn = posixpath.join(self.builder.imgpath, fname)
@@ -83,21 +89,27 @@ def render_aafigure(self, text, options, prefix):
         # LaTeX
         relfn = fname
         outfn = path.join(self.builder.outdir, fname)
+    metadata_fname = '%s.aafig' % outfn
 
-    if path.isfile(outfn):
-        extra = None
-        if options['format'].lower() == 'svg':
-            f = file(metadata_fname, 'r')
-            extra = f.read()
-            f.close()
-        return relfn, outfn, id, extra
+    try:
+        if path.isfile(outfn):
+            extra = None
+            if options['format'].lower() == 'svg':
+                f = None
+                try:
+                    try:
+                        f = file(metadata_fname, 'r')
+                        extra = f.read()
+                    except:
+                        raise AafigError()
+                finally:
+                    if f is not None:
+                        f.close()
+            return relfn, outfn, id, extra
+    except AafigError:
+        pass
 
     ensuredir(path.dirname(outfn))
-
-    # merge default options
-    for (k, v) in self.builder.config.aafig_default_options.items():
-        if k not in options:
-            options[k] = v
 
     try:
         (visitor, output) = aafigure.render(text, outfn, options)
@@ -130,7 +142,7 @@ def render_html(self, node, text, options, prefix=DEFAULT_PREFIX, imgcls=None):
         imgcss = imgcls and 'class="%s"' % imgcls or ''
         if options['format'].lower() == 'svg':
             self.body.append('<object type="image/svg+xml" data="%s" %s %s />'
-                    (fname, extra, imgcss))
+                    % (fname, extra, imgcss))
         else:
             self.body.append('<img src="%s" alt="%s" %s/>\n' %
                     (fname, self.encode(text).strip(), imgcss))

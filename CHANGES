@@ -6,6 +6,9 @@ This file describes user-visible changes between the extension versions.
 Version 0.3 (unreleased)
 ------------------------
 
+* Add dependency against aafigure package to ease installation.
+* Improve error handling.
+* Fix a couple of bugs.
 
 
 Version 0.2 (2009-06-07)
