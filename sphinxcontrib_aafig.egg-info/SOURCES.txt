@@ -5,6 +5,8 @@ README
 setup.cfg
 setup.py
 sphinxcontrib/__init__.py
+sphinxcontrib/aafig-pre-sphinx-trans.py
+sphinxcontrib/aafig-pre-transform.py
 sphinxcontrib/aafig.py
 sphinxcontrib_aafig.egg-info/PKG-INFO
 sphinxcontrib_aafig.egg-info/SOURCES.txt
