@@ -22,7 +22,9 @@ documentation.
 Usage example::
 
     .. aafig::
+        :aspect: 60
         :scale: 150
+        :proportional:
         :textual:
 
         +-------+         +-----------+
@@ -36,9 +38,9 @@ requires = ['Sphinx>=0.6', 'aafigure>=0.3']
 setup(
     name='sphinxcontrib-aafig',
     version='0.3',
-    url='http://bitbucket.org/birkenfeld/sphinx-contrib',
+    url='http://packages.python.org/sphinxcontrib-aafig/',
     download_url='http://pypi.python.org/pypi/sphinxcontrib-aafig',
-    license='BSD',
+    license='BOLA',
     author='Leandro Lucarella',
     author_email='llucax@gmail.com',
     description='aafig Sphinx extension',
@@ -49,7 +51,7 @@ setup(
         'Environment :: Console',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
+        'License :: Public Domain',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Documentation',

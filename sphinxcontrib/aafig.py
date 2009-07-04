@@ -8,9 +8,8 @@
 
     See the README file for details.
 
-    :copyright: Copyright 2009 by Leandro Lucarella <llucax@gmail.com> \
-        (based on sphinxcontrib.mscgen).
-    :license: BSD, see LICENSE for details.
+    :author: Leandro Lucarella <llucax@gmail.com>
+    :license: BOLA, see LICENSE for details
 """
 
 import posixpath
@@ -62,8 +61,6 @@ class AafigDirective(directives.images.Image):
     """
     has_content = True
     required_arguments = 0
-    optional_arguments = 0
-    final_argument_whitespace = False
     own_option_spec = dict(
         line_width   = float,
         background   = str,
@@ -110,18 +107,18 @@ def render_aafig_images(app, doctree):
         text = img.aafig['text']
         format = app.builder.format
         merge_dict(options, app.builder.config.aafig_default_options)
+        if format in format_map:
+            options['format'] = format_map[format]
+        else:
+            app.builder.warn('unsupported builder format "%s", please '
+                    'add a custom entry in aafig_format config option '
+                    'for this builder' % format)
+            img.replace_self(nodes.literal_block(text, text))
+            continue
+        if options['format'] is None:
+            img.replace_self(nodes.literal_block(text, text))
+            continue
         try:
-            if format in format_map:
-                options['format'] = format_map[format]
-            else:
-                app.builder.warn('unsupported builder format "%s", please '
-                        'add a custom entry in aafig_format config option '
-                        'for this builder' % format)
-                img.replace_self(nodes.literal_block(text, text))
-                continue
-            if options['format'] is None:
-                img.replace_self(nodes.literal_block(text, text))
-                continue
             fname, outfn, id, extra = render_aafigure(app, text, options)
         except AafigError, exc:
             app.builder.warn('aafigure error: ' + str(exc))

@@ -1,11 +1,11 @@
 Metadata-Version: 1.0
 Name: sphinxcontrib-aafig
-Version: 0.3dev-20090702
+Version: 0.3dev-20090703
 Summary: aafig Sphinx extension
-Home-page: http://bitbucket.org/birkenfeld/sphinx-contrib
+Home-page: http://packages.python.org/sphinxcontrib-aafig/
 Author: Leandro Lucarella
 Author-email: llucax@gmail.com
-License: BSD
+License: BOLA
 Download-URL: http://pypi.python.org/pypi/sphinxcontrib-aafig
 Description: 
         This package contains the aafigure_ Sphinx_ extension.
@@ -27,7 +27,9 @@ Description:
         Usage example::
         
         .. aafig::
+        :aspect: 60
         :scale: 150
+        :proportional:
         :textual:
         
         +-------+         +-----------+
@@ -40,7 +42,7 @@ Classifier: Development Status :: 4 - Beta
 Classifier: Environment :: Console
 Classifier: Environment :: Web Environment
 Classifier: Intended Audience :: Developers
-Classifier: License :: OSI Approved :: BSD License
+Classifier: License :: Public Domain
 Classifier: Operating System :: OS Independent
 Classifier: Programming Language :: Python
 Classifier: Topic :: Documentation
