@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: sphinxcontrib-aafig
-Version: 0.3dev-20090703
+Version: 0.3
 Summary: aafig Sphinx extension
 Home-page: http://packages.python.org/sphinxcontrib-aafig/
 Author: Leandro Lucarella
