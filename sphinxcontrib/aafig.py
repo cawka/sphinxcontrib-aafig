@@ -23,7 +23,7 @@ from docutils import nodes
 from docutils.parsers.rst import directives
 
 from sphinx.errors import SphinxError
-from sphinx.util import ensuredir
+from sphinx.util import ensuredir, relative_uri
 from sphinx.util.compat import Directive
 
 try:
@@ -99,10 +99,15 @@ class AafigDirective(directives.images.Image):
 def render_aafig_images(app, doctree):
     format_map = app.builder.config.aafig_format
     merge_dict(format_map, DEFAULT_FORMATS)
+    if aafigure is None:
+        app.builder.warn('aafigure module not installed, ASCII art images '
+                'will be redered as literal text')
     for img in doctree.traverse(nodes.image):
         if not hasattr(img, 'aafig'):
             continue
-
+        if aafigure is None:
+            img.replace_self(nodes.literal_block(text, text))
+            continue
         options = img.aafig['options']
         text = img.aafig['text']
         format = app.builder.format
@@ -144,12 +149,18 @@ def render_aafigure(app, text, options):
 
     fname = get_basename(text, options)
     fname = '%s.%s' % (get_basename(text, options), options['format'])
-    if hasattr(app.builder, 'imgpath'):
+    if app.builder.format == 'html':
         # HTML
-        relfn = posixpath.join(app.builder.imgpath, fname)
+        imgpath = relative_uri(app.builder.env.docname, '_images')
+        relfn = posixpath.join(imgpath, fname)
         outfn = path.join(app.builder.outdir, '_images', fname)
     else:
-        # LaTeX
+        # Non-HTML
+        if app.builder.format != 'latex':
+            app.builder.warn('aafig: the builder format %s is not officially '
+                    'supported, aafigure images could not work. Please report '
+                    'problems and working builder to avoid this warning in '
+                    'the future' % app.builder.format)
         relfn = fname
         outfn = path.join(app.builder.outdir, fname)
     metadata_fname = '%s.aafig' % outfn
@@ -196,3 +207,5 @@ def setup(app):
     app.add_config_value('aafig_format', DEFAULT_FORMATS, 'html')
     app.add_config_value('aafig_default_options', dict(), 'html')
 
+
+# vim: set expandtab shiftwidth=4 softtabstop=4 :

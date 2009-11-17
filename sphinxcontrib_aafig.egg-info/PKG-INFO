@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: sphinxcontrib-aafig
-Version: 0.3
+Version: 1.0
 Summary: aafig Sphinx extension
 Home-page: http://packages.python.org/sphinxcontrib-aafig/
 Author: Leandro Lucarella
@@ -38,7 +38,7 @@ Description:
         
         
 Platform: any
-Classifier: Development Status :: 4 - Beta
+Classifier: Development Status :: 5 - Production/Stable
 Classifier: Environment :: Console
 Classifier: Environment :: Web Environment
 Classifier: Intended Audience :: Developers
