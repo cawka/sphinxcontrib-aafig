@@ -1,6 +1,6 @@
-Metadata-Version: 1.0
+Metadata-Version: 1.1
 Name: sphinxcontrib-aafig
-Version: 1.0
+Version: 1.1
 Summary: aafig Sphinx extension
 Home-page: http://packages.python.org/sphinxcontrib-aafig/
 Author: Leandro Lucarella
@@ -26,15 +26,15 @@ Description:
         
         Usage example::
         
-        .. aafig::
-        :aspect: 60
-        :scale: 150
-        :proportional:
-        :textual:
+            .. aafig::
+                :aspect: 60
+                :scale: 150
+                :proportional:
+                :textual:
         
-        +-------+         +-----------+
-        | Hello +-------->+ aafigure! |
-        +-------+         +-----------+
+                +-------+         +-----------+
+                | Hello +-------->+ aafigure! |
+                +-------+         +-----------+
         
         
 Platform: any

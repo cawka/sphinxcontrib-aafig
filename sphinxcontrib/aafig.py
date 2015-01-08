@@ -26,6 +26,8 @@ from sphinx.errors import SphinxError
 from sphinx.util import ensuredir, relative_uri
 from sphinx.util.compat import Directive
 
+from docutils.parsers.rst.directives import images
+
 try:
     import aafigure
 except ImportError:
@@ -55,7 +57,7 @@ class AafigError(SphinxError):
     category = 'aafig error'
 
 
-class AafigDirective(directives.images.Image):
+class AafigDirective(images.Image):
     """
     Directive to insert an ASCII art figure to be rendered by aafigure.
     """
